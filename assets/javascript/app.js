@@ -11,12 +11,9 @@ $(document).ready(function(){
     
       };
     firebase.initializeApp(config);
-    //VARIABLES=========================================================
+    //VARIABLES
     var database = firebase.database();
-    //CONVERT TRAIN TIME================================================
-    //var currentTime = moment();
-    //console.log("Current Time: " + currentTime);
-    //FUNCTIONS=========================================================
+    //FUNCTIONS
     
     // CAPTURE BUTTON CLICK
     $("#submit").on("click", function() {
@@ -42,7 +39,7 @@ $(document).ready(function(){
     
     //ON CLICK CHILD FUNCTION
     database.ref().on("child_added", function(childSnapshot){
-        // console.log(childSnapshot.val());
+       
         var name = childSnapshot.val().name;
         var dest = childSnapshot.val().dest;
         var time = childSnapshot.val().time;
@@ -52,15 +49,14 @@ $(document).ready(function(){
         console.log("Destination: " + dest);
         console.log("Time: " + time);
         console.log("Frequency: " + freq);
-        //console.log(moment().format("HH:mm"));
+      
     
-    //CONVERT TRAIN TIME================================================
+    //CONVERT TRAIN TIME
         var freq = parseInt(freq);
         //CURRENT TIME
         var currentTime = moment();
         console.log("CURRENT TIME: " + moment().format('HH:mm'));
-        //FIRST TIME: PUSHED BACK ONE YEAR TO COME BEFORE CURRENT TIME
-        // var dConverted = moment(time,'hh:mm').subtract(1, 'years');
+        //FIRST TIME: PUSHED BACK ONE YEAR TO COME BEFORE CURRENT TIME  
         var dConverted = moment(childSnapshot.val().time, 'HH:mm').subtract(1, 'years');
         console.log("DATE CONVERTED: " + dConverted);
         var trainTime = moment(dConverted).format('HH:mm');
